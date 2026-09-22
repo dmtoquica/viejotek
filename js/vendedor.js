@@ -3,17 +3,18 @@ import { supabase } from "./supabase.js";
 const $=id=>document.getElementById(id);
 const money=n=>new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(n||0);
 let session=null;
+const SELLER_NAMES=["Juliana Lopez","Daniela Lopez","Alejandra Rodriguez","Rosa Hernandez","Diana Toquica","Maria Camila","Carolina Malencha","Marcela Gonzalez","Sebastian Lopez","Pablo","Tatiana Lopez","Fernando Lopez","Maicol Lopez","Luz Sabogal","Patricia C. \"claudia\"","Jose Lopez","Mateo Lopez","Javier A","Javier B","Elizabeth Rodriguez"];
 
 function saveSession(s){sessionStorage.setItem("viejotek_seller",JSON.stringify(s));session=s;}
 function clearSession(){sessionStorage.removeItem("viejotek_seller");session=null;}
 
 async function loadNames(){
+  const select=$("sellerName");
+  select.innerHTML='<option value="">Selecciona tu nombre</option>'+SELLER_NAMES.map(x=>'<option value="'+x.replaceAll('"','&quot;')+'">'+x+'</option>').join("");
   const {data,error}=await supabase.rpc("seller_names");
-  if(error){
-    $("loginMsg").textContent="Aún no están preparados los vendedores. La administración debe preparar la lista primero.";
-    return;
+  if(!error && data?.length){
+    select.innerHTML='<option value="">Selecciona tu nombre</option>'+data.map(x=>'<option value="'+x.name.replaceAll('"','&quot;')+'">'+x.name+'</option>').join("");
   }
-  $("sellerName").innerHTML='<option value="">Selecciona tu nombre</option>'+(data||[]).map(x=>'<option>'+x.name+'</option>').join("");
 }
 
 async function login(name,pin){
