@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boleta digital · VEJOTEK</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+.ticket-page{max-width:520px;margin:30px auto;padding:20px}.digital-ticket{text-align:center}.digital-ticket img{width:240px;max-width:80%;margin:18px auto}.big{font-size:28px;font-weight:800}.type{font-size:20px;font-weight:700}.small{color:#666}
+</style>
+</head>
+<body>
+<main class="ticket-page">
+<section class="panel digital-ticket">
+<p class="eyebrow">VEJOTEK · EDICIÓN MÁSCARAS</p>
+<h1>🎟️ Boleta digital</h1>
+<div id="content">Cargando boleta...</div>
+</section>
+</main>
+<script>
+const p=new URLSearchParams(location.search);
+const token=p.get("token"), n=p.get("n"), type=p.get("type")==="pareja"?"PAREJA · 2 personas":"INDIVIDUAL · 1 persona";
+const price=Number(p.get("price")||0);
+const buyer=p.get("buyer")||"";
+const money=new Intl.NumberFormat("es-CO",{style:"currency",currency:"COP",maximumFractionDigits:0}).format(price);
+if(!token||!n){document.getElementById("content").innerHTML="<p>Boleta no encontrada.</p>";}
+else{
+ const qr="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data="+encodeURIComponent(token);
+ document.getElementById("content").innerHTML='<div class="big">'+n+'</div><p class="type">'+type+'</p><p>Valor: <b>'+money+'</b></p>'+(buyer?'<p>Comprador: <b>'+buyer+'</b></p>':'')+'<img src="'+qr+'" alt="Código QR de '+n+'"><p class="small">Presenta este código QR al ingresar al evento.</p><p class="small">24 de octubre de 2026 · 5:00 P.M.</p>';
+}
+</script>
+</body>
+</html>
