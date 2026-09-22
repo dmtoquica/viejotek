@@ -1,0 +1,5 @@
+import { supabase } from "./supabase.js";
+const msg=document.getElementById("msg");
+const show=m=>msg.textContent=m;
+document.getElementById("loginForm").addEventListener("submit",async e=>{e.preventDefault();const {data,error}=await supabase.auth.signInWithPassword({email:email.value,password:password.value});if(error)return show(error.message);const {data:p}=await supabase.from("profiles").select("role").eq("id",data.user.id).single();location.href=p?.role==="admin"?"admin.html":"socio.html";});
+document.getElementById("signupForm").addEventListener("submit",async e=>{e.preventDefault();const {data,error}=await supabase.auth.signUp({email:signupEmail.value,password:signupPassword.value,options:{data:{name:name.value}}});show(error?error.message:"Cuenta creada. Revisa tu correo si Supabase solicita confirmación.");});
