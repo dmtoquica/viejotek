@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vendedores · VEJOTEK</title><link rel="stylesheet" href="css/styles.css"></head>
+<body class="center">
+<main class="panel auth" id="loginBox">
+  <a href="index.html" class="back">← VEJOTEK</a>
+  <p class="eyebrow">Vendedores</p>
+  <h1>Mis boletas</h1>
+  <p class="muted">Entra con tu nombre y PIN. Solo verás tus 5 boletas.</p>
+  <form id="sellerLogin">
+    <label>Nombre
+      <select id="sellerName" required><option value="">Selecciona tu nombre</option></select>
+    </label>
+    <label>PIN<input id="sellerPin" inputmode="numeric" maxlength="4" required placeholder="4 números"></label>
+    <button class="btn primary full">Entrar</button>
+  </form>
+  <div id="loginMsg" class="msg"></div>
+</main>
+
+<main class="container" id="app" hidden>
+  <header class="topbar"><div class="brand">VEJOTEK <span>VENDEDOR</span></div><button id="exit" class="btn ghost">Salir</button></header>
+  <div class="page-head"><div><p class="eyebrow">Mis boletas</p><h1 id="welcome">Hola</h1><p class="muted">Comparte, registra la venta y marca el pago. Nada más.</p></div></div>
+  <div class="stats">
+    <div class="stat"><b id="assigned">0</b><span>Asignadas</span></div>
+    <div class="stat"><b id="sold">0</b><span>Vendidas</span></div>
+    <div class="stat"><b id="paid">0</b><span>Pagadas</span></div>
+  </div>
+  <section class="panel"><div id="tickets" class="ticket-grid"></div></section>
+  <div id="msg" class="msg"></div>
+</main>
+<script type="module" src="js/vendedor.js"></script>
+</body></html>
