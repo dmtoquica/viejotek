@@ -34,7 +34,8 @@ async function loadTickets(){
   $("paid").textContent=rows.filter(x=>["pagada","ingresada"].includes(x.status)).length;
   $("tickets").innerHTML=rows.map(x=>{
     const ticketUrl=location.origin+location.pathname.replace(/[^/]+$/,"")+"ticket.html?token="+encodeURIComponent(x.qr_token)+"&n="+encodeURIComponent(x.ticket_number)+"&type="+encodeURIComponent(x.ticket_type)+"&price="+encodeURIComponent(x.price)+"&buyer="+encodeURIComponent(x.buyer_name||"");
-    const share=encodeURIComponent("🎟️ VEJOTEK "+x.ticket_number+"\\nEntrada: "+(x.ticket_type==="pareja"?"PAREJA · 2 personas":"INDIVIDUAL · 1 persona")+"\\nValor: "+money(x.price)+"\\n🎫 Tu boleta digital y QR: "+ticketUrl);
+    const shareText="🎟️ VEJOTEK "+x.ticket_number+"\nEntrada: "+(x.ticket_type==="pareja"?"PAREJA · 2 personas":"INDIVIDUAL · 1 persona")+"\nValor: "+money(x.price)+"\n🎫 Tu boleta digital y QR:\n"+ticketUrl;
+    const share=encodeURIComponent(shareText);
     const status=x.status;
     const sold=status==="vendida";
     const available=["disponible","reservada"].includes(status);
@@ -46,10 +47,10 @@ async function loadTickets(){
       (available?
         '<button class="btn primary full sell" data-id="'+x.id+'">Registrar venta</button>':
         '<div class="muted">'+(x.buyer_name||"Sin comprador")+(x.buyer_phone?" · "+x.buyer_phone:"")+'</div>'+
-        '<a class="btn full" target="_blank" href="https://api.whatsapp.com/send?text='+share+'">📲 Enviar boleta por WhatsApp</a><button class="btn full copyTicket" data-url="'+ticketUrl+'">🔗 Copiar enlace de boleta</button>'+
+        '<a class="btn full" target="_blank" href="https://wa.me/?text='+share+'">📲 Enviar boleta por WhatsApp</a><button class="btn full copyTicket" data-url="'+ticketUrl+'">🔗 Copiar enlace de boleta</button>'+
         (sold?'<button class="btn primary full paidBtn" data-id="'+x.id+'">💰 Marcar pagada</button>':'')
       )+
-      (available?'<a class="btn full" target="_blank" href="https://api.whatsapp.com/send?text='+share+'">📲 Enviar boleta por WhatsApp</a><button class="btn full copyTicket" data-url="'+ticketUrl+'">🔗 Copiar enlace de boleta</button>':'')+
+      (available?'<a class="btn full" target="_blank" href="https://wa.me/?text='+share+'">📲 Enviar boleta por WhatsApp</a><button class="btn full copyTicket" data-url="'+ticketUrl+'">🔗 Copiar enlace de boleta</button>':'')+
       '</article>';
   }).join("");
 
