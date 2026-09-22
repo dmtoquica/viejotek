@@ -65,6 +65,18 @@ begin
 end;
 $$;
 
+create or replace function public.seller_names()
+returns table(name text)
+language sql
+security definer
+set search_path=public
+as $
+  select name from public.seller_access where active=true order by name;
+$;
+
+revoke all on function public.seller_names() from public;
+grant execute on function public.seller_names() to anon,authenticated;
+
 create or replace function public.seller_login(p_name text, p_pin text)
 returns json
 language plpgsql
