@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="es">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Administración · VEJOTEK</title><link rel="stylesheet" href="css/styles.css"></head>
+<body><header class="topbar"><div class="brand">VEJOTEK <span>ADMIN</span></div><button id="logout" class="btn ghost">Salir</button></header>
+<main class="container"><div class="page-head"><div><p class="eyebrow">Panel administrativo</p><h1>Control del evento</h1></div><div id="userLabel" class="muted"></div></div>
+<div class="stats"><div class="stat"><b id="total">0</b><span>Entradas</span></div><div class="stat"><b id="sold">0</b><span>Vendidas</span></div><div class="stat"><b id="paid">0</b><span>Pagadas</span></div><div class="stat"><b id="entered">0</b><span>Ingresaron</span></div><div class="stat"><b id="income">$0</b><span>Recaudo</span></div></div>
+<section class="panel"><div class="section-head"><h2>Entradas</h2><div class="actions"><button id="seed" class="btn">Crear 100 entradas</button><button id="export" class="btn">Exportar CSV</button></div></div><div class="filters"><input id="search" placeholder="Buscar número, comprador o teléfono"><select id="status"><option value="">Todos</option><option value="disponible">Disponibles</option><option value="reservada">Reservadas</option><option value="vendida">Vendidas</option><option value="pagada">Pagadas</option><option value="ingresada">Ingresadas</option></select></div><div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Tipo</th><th>Precio</th><th>Socio</th><th>Comprador</th><th>Estado</th><th>Entrada</th></tr></thead><tbody id="tickets"></tbody></table></div></section>
+<section class="panel"><div class="section-head"><h2>Socios</h2><span class="muted">Cada socio tendrá 5 entradas asignadas</span></div><div id="socios" class="cards"></div></section>
+<div id="msg" class="msg"></div></main><script type="module" src="js/admin.js"></script></body></html>
