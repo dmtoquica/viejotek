@@ -12,10 +12,10 @@ alter table public.tickets
 
 alter table public.seller_access enable row level security;
 
-create policy if not exists "seller admin select" on public.seller_access
+create policy "seller admin select" on public.seller_access
 for select to authenticated using (public.is_admin());
 
-create policy if not exists "seller admin write" on public.seller_access
+create policy "seller admin write" on public.seller_access
 for all to authenticated using (public.is_admin()) with check (public.is_admin());
 
 create or replace function public.seed_sellers()
@@ -162,5 +162,5 @@ revoke all on function public.seller_mark_paid(uuid,text,uuid) from public;
 grant execute on function public.seller_mark_paid(uuid,text,uuid) to anon,authenticated;
 
 -- Permitir que el administrador vea el vendedor aunque todavía no haya perfil de autenticación.
-create policy if not exists "tickets admin select all" on public.tickets
+create policy "tickets admin select all" on public.tickets
 for select to authenticated using (public.is_admin());
