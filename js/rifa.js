@@ -1,0 +1,4 @@
+import { supabase } from "./supabase.js";
+const $=id=>document.getElementById(id);
+async function load(){const {data,error}=await supabase.from("raffle_entries").select("*,tickets(ticket_number,buyer_name)").eq("eligible",true);if(error)return $("msg").textContent=error.message;window.entries=data||[];$("entries").innerHTML=window.entries.map((x,i)=>'<div class="card"><b>#'+(i+1)+'</b><div>'+((x.tickets?.buyer_name)||"Participante")+'</div><div class="muted">'+x.tickets?.ticket_number+'</div></div>').join("");}
+$("refresh").onclick=load;$("draw").onclick=()=>{if(!window.entries?.length)return $("winner").textContent="No hay participantes elegibles.";const w=window.entries[Math.floor(Math.random()*window.entries.length)];$("winner").textContent="🎉 Ganador: "+(w.tickets?.buyer_name||w.tickets?.ticket_number);};load();
