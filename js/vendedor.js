@@ -34,7 +34,7 @@ async function loadTickets(){
   $("paid").textContent=rows.filter(x=>["pagada","ingresada"].includes(x.status)).length;
   $("tickets").innerHTML=rows.map(x=>{
     const ticketUrl=location.origin+location.pathname.replace(/[^/]+$/,"")+"ticket.html?token="+encodeURIComponent(x.qr_token)+"&n="+encodeURIComponent(x.ticket_number)+"&type="+encodeURIComponent(x.ticket_type)+"&price="+encodeURIComponent(x.price)+"&buyer="+encodeURIComponent(x.buyer_name||"");
-    const shareText="🎟️ VEJOTEK "+x.ticket_number+"\nEntrada: "+(x.ticket_type==="pareja"?"PAREJA · 2 personas":"INDIVIDUAL · 1 persona")+"\nValor: "+money(x.price)+"\n🎫 Tu boleta digital y QR:\n"+ticketUrl;
+    const shareText="🎟️ VIEJOTEK "+x.ticket_number+"\nEntrada: "+(x.ticket_type==="pareja"?"PAREJA · 2 personas":"INDIVIDUAL · 1 persona")+"\nValor: "+money(x.price)+"\n🎫 Tu boleta digital y QR:\n"+ticketUrl;
     const share=encodeURIComponent(shareText);
     const status=x.status;
     const sold=status==="vendida";
